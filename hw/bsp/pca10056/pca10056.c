@@ -51,9 +51,6 @@
 static nrfx_uarte_t _uart_id = NRFX_UARTE_INSTANCE(0);
 //static void uart_handler(nrfx_uart_event_t const * p_event, void* p_context);
 
-// tinyusb function that handles power event (detected, ready, removed)
-// We must call it within SD's SOC event handler, or set it as power event handler if SD is not enabled.
-extern void tusb_hal_nrf_power_event(uint32_t event);
 
 void board_init(void)
 {
@@ -101,7 +98,6 @@ void board_init(void)
 
   // USB power may already be ready at this time -> no event generated
   // We need to invoke the handler based on the status initially
-  uint32_t usb_reg;
 
 #ifdef SOFTDEVICE_PRESENT
   uint8_t sd_en = false;
@@ -113,32 +109,15 @@ void board_init(void)
     sd_power_usbremoved_enable(true);
 
     sd_power_usbregstatus_get(&usb_reg);
-  }else
-#endif
-  {
-    // Power module init
-    const nrfx_power_config_t pwr_cfg = { 0 };
-    nrfx_power_init(&pwr_cfg);
-
-    // Register tusb function as USB power handler
-    // cause cast-function-type warning
-    const nrfx_power_usbevt_config_t config = { .handler = ((nrfx_power_usb_event_handler_t) tusb_hal_nrf_power_event) };
-    nrfx_power_usbevt_init(&config);
-
-    nrfx_power_usbevt_enable();
-
-    usb_reg = NRF_POWER->USBREGSTATUS;
   }
-
-  if ( usb_reg & POWER_USBREGSTATUS_VBUSDETECT_Msk ) tusb_hal_nrf_power_event(NRFX_POWER_USB_EVT_DETECTED);
-  if ( usb_reg & POWER_USBREGSTATUS_OUTPUTRDY_Msk  ) tusb_hal_nrf_power_event(NRFX_POWER_USB_EVT_READY);
+#endif
 #endif
 }
 
 //--------------------------------------------------------------------+
 // Board porting API
 //--------------------------------------------------------------------+
-
+//
 void board_led_write(bool state)
 {
   nrf_gpio_pin_write(LED_PIN, state ? LED_STATE_ON : (1-LED_STATE_ON));
@@ -149,7 +128,7 @@ uint32_t board_button_read(void)
   return BUTTON_STATE_ACTIVE == nrf_gpio_pin_read(BUTTON_PIN);
 }
 
-//static void uart_handler(nrfx_uart_event_t const * p_event, void* p_context)
+//static void uart_handler(nrfx_uarte_event_t const * p_event, void* p_context)
 //{
 //
 //}

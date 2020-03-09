@@ -54,7 +54,7 @@ extern "C" {
 // Uncomment this line to use the standard MDK way of binding IRQ handlers
 // at linking time.
 #include <soc/nrfx_irqs.h>
-
+#include <soc/nrfx_atomic.h>
 //------------------------------------------------------------------------------
 
 /**
@@ -217,6 +217,17 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
  * @brief Bitmask defining TIMER instances reserved to be used outside of nrfx.
  */
 #define NRFX_TIMERS_USED        0
+
+/**
+ * @brief Macro for running a bitwise AND operation on an atomic object
+ *        and returning its previous value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of the second operand in the AND operation.
+ *
+ * @return Previous value of the atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_AND(p_data, value) nrfx_atomic_u32_fetch_and(p_data, value)
 
 /** @} */
 

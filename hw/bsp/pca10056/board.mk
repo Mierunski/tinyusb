@@ -26,6 +26,10 @@ LDFLAGS += -L$(TOP)/hw/mcu/nordic/nrfx/mdk
 SRC_C += \
 	hw/mcu/nordic/nrfx/drivers/src/nrfx_power.c \
 	hw/mcu/nordic/nrfx/drivers/src/nrfx_uarte.c \
+	hw/mcu/nordic/nrfx/drivers/src/nrfx_clock.c \
+	hw/mcu/nordic/nrfx/drivers/src/nrfx_systick.c \
+	hw/mcu/nordic/nrfx/soc/nrfx_atomic.c \
+	hw/mcu/nordic/nrfx/drivers/src/nrfx_usbd.c \
 	hw/mcu/nordic/nrfx/mdk/system_nrf52840.c \
 
 INC += \

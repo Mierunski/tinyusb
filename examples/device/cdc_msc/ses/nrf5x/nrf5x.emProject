@@ -61,6 +61,10 @@
                 <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_power.c" />
                 <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_qspi.c" />
                 <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_uarte.c" />
+                <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_clock.c" />
+                <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_systick.c" />
+                <file file_name="../../../../../hw/mcu/nordic/nrfx/soc/nrfx_atomic.c" />
+                <file file_name="../../../../../hw/mcu/nordic/nrfx/drivers/src/nrfx_usbd.c" />
               </folder>
             </folder>
             <folder Name="hal">
@@ -82,6 +86,7 @@
           </folder>
           <file file_name="../../../../../hw/mcu/nordic/nrfx_config.h" />
           <file file_name="../../../../../hw/mcu/nordic/nrfx_glue.h" />
+          <file file_name="../../../../../hw/mcu/nordic/nrfx_config_nrf52840.h" />
         </folder>
       </folder>
       <configuration
@@ -113,7 +118,8 @@
       Name="pca10056"
       build_treat_warnings_as_errors="No"
       c_preprocessor_definitions="BOARD_PCA10056"
-      linker_memory_map_file="nRF52840_xxAA_MemoryMap.xml" />
+      linker_memory_map_file="nRF52840_xxAA_MemoryMap.xml"
+      linker_output_format="hex" />
     <configuration
       Name="pca10056 s140v6"
       build_treat_warnings_as_errors="No"
