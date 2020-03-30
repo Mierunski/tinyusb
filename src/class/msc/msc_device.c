@@ -405,11 +405,11 @@ bool mscd_xfer_cb(uint8_t rhport, uint8_t ep_addr, xfer_result_t event, uint32_t
       if(ep_addr != p_msc->ep_out) return true;
 
       TU_ASSERT( event == XFER_RESULT_SUCCESS &&
-                 xferred_bytes == sizeof(msc_cbw_t) && p_cbw->signature == MSC_CBW_SIGNATURE );
+                 xferred_bytes == sizeof(msc_cbw_t) && p_cbw->signature == MSC_CBW_SIGNATURE ); 
 
       TU_LOG2("  SCSI Command: %s\n", lookup_find(&_msc_scsi_cmd_table, p_cbw->command[0]));
       // TU_LOG2_MEM(p_cbw, xferred_bytes, 2);
-
+ 
       p_csw->signature    = MSC_CSW_SIGNATURE;
       p_csw->tag          = p_cbw->tag;
       p_csw->data_residue = 0;

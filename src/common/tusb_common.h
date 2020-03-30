@@ -206,7 +206,7 @@ static inline bool     tu_bit_test (uint32_t value, uint8_t pos) { return (value
 //--------------------------------------------------------------------+
 // Debug Function
 //--------------------------------------------------------------------+
-
+#define CFG_TUSB_DEBUG 2
 // CFG_TUSB_DEBUG for debugging
 // 0 : no debug
 // 1 : print when there is error

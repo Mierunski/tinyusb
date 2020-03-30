@@ -417,7 +417,7 @@ void tud_task (void)
         uint8_t const epnum   = tu_edpt_number(ep_addr);
         uint8_t const ep_dir  = tu_edpt_dir(ep_addr);
 
-        TU_LOG2("  Endpoint: 0x%02X, Bytes: %ld\r\n", ep_addr, event.xfer_complete.len);
+        TU_LOG2("  Endpoint: 0x%X, Bytes: %ld\r\n", ep_addr, event.xfer_complete.len);
 
         _usbd_dev.ep_status[epnum][ep_dir].busy = false;
 
@@ -908,7 +908,7 @@ void dcd_event_setup_received(uint8_t rhport, uint8_t const * setup, bool in_isr
 void dcd_event_xfer_complete (uint8_t rhport, uint8_t ep_addr, uint32_t xferred_bytes, uint8_t result, bool in_isr)
 {
   dcd_event_t event = { .rhport = rhport, .event_id = DCD_EVENT_XFER_COMPLETE };
-
+  TU_LOG2("EP%X %ld\r\n", ep_addr, xferred_bytes);
   event.xfer_complete.ep_addr = ep_addr;
   event.xfer_complete.len     = xferred_bytes;
   event.xfer_complete.result  = result;
@@ -971,7 +971,7 @@ bool usbd_edpt_xfer(uint8_t rhport, uint8_t ep_addr, uint8_t * buffer, uint16_t 
   TU_VERIFY( dcd_edpt_xfer(rhport, ep_addr, buffer, total_bytes) );
   _usbd_dev.ep_status[epnum][dir].busy = true;
 
-  TU_LOG2("  XFER Endpoint: 0x%02X, Bytes: %d\r\n", ep_addr, total_bytes);
+  TU_LOG2("  XFER Endpoint: 0x%X, Bytes: %d\r\n", ep_addr, total_bytes);
 
   return true;
 }

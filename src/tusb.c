@@ -93,8 +93,8 @@ void tu_print_mem(void const *buf, uint16_t count, uint8_t indent)
 
   uint8_t const *buf8 = (uint8_t const *) buf;
 
-  char format[] = "%00lX";
-  format[2] += 2*size;
+//  char format[] = "%02X";
+//  format[2] += 2*size;
 
   const uint8_t  item_per_line  = 16 / size;
 
@@ -115,14 +115,14 @@ void tu_print_mem(void const *buf, uint16_t count, uint8_t indent)
       for(uint8_t s=0; s < indent; s++) tu_printf(" ");
 
       // print offset or absolute address
-      tu_printf("%03lX: ", 16*i/item_per_line);
+      tu_printf("0x%lX: ", 16*i/item_per_line);
     }
 
     memcpy(&value, buf8, size);
     buf8 += size;
 
     tu_printf(" ");
-    tu_printf(format, value);
+    tu_printf("0x%lX", value);
   }
 
   // fill up last row to 16 for printing ascii
